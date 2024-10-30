@@ -2,7 +2,7 @@ import React from 'react';
 
 const ServerList = () => {
     return (
-        <div>
+        <div className="w-[20%]">
         </div>
     );
 }

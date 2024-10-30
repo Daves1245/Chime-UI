@@ -6,9 +6,11 @@ import UserList from './UserList';
 
 export default function Home() {
     return (
-        <div>
+        <div className="flex flex-row">
             <ServerList />
-            <Chat />
+            <div className="flex flex-col flex-grow min-h-screen">
+                <Chat />
+            </div>
             <UserList />
         </div>
     );
