@@ -2,21 +2,20 @@
 
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import Server from 'app/models/Server';
+import Server from '../../models/Server';
 
 // server = [...server]
 
-const ServerIcon = () => {
-    const [instance, setInstance] = useState(null);
+interface ServerIconProps {
+    instance: Server;
+}
 
-    useEffect(() => {
-        const test = new Server('Server', )
-    }, []);
-
+const ServerIcon: React.FC<ServerIconProps> = ({instance}) => {
     return (
-        <div>
+        <div className="bg-[#4A90E2] pb-2 w-[100%]">
             {instance && (
                 <div>
+                    <p> {instance.name} </p>
                 </div>
             )}
         </div>
