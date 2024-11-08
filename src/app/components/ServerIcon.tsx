@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Server from '../../models/Server';
 
-// server = [...server]
-
 interface ServerIconProps {
     instance: Server;
 }

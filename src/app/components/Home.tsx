@@ -6,9 +6,6 @@ import Chat from './Chat';
 import UserList from './UserList';
 
 export default function Home() {
-    const servers = [
-        new Server()
-    ];
     return (
         <div className="flex flex-row">
             <ServerList />
