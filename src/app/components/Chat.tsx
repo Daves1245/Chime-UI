@@ -1,48 +1,47 @@
 "use client";
 
 import React, { useState } from 'react';
-import Card from './Card';
-import MessageBox from './MessageBox';
-import ReplyButton from './ReplyButton';
 import ChatHistory from './ChatHistory';
 
-const Chat = ()=> {
+interface Message {
+    text: string;
+}
 
-    const [history, setHistory] = useState([]);
+const Chat = () => {
+    const [history, setHistory] = useState<Message[]>([]);
     const [text, setText] = useState('');
-    const [id, setId] = useState(0);
 
-    const addMessage = (text) => {
-        setHistory([...history, new Card(id, text)])
-        setId(id + 1);
-    }
+    const addMessage = (text: string) => {
+        setHistory([...history, { text }]);
+    };
 
-    const sendMessage = (text) => {
+    const sendMessage = (text: string) => {
+        // TODO interface with chime backend
+        return;
+    };
 
-    }
-
-    const onChange = (e) => {
+    const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
-    }
+    };
 
-    const handleKeyPress = (e) => {
-        setText(e.target.value);
-        if (e.key == "Enter") {
-            console.log("pressed enter");
-            sendMessage();
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            console.log('pressed enter');
+            sendMessage(text);
             e.preventDefault();
-            addMessage(text)
+            addMessage(text);
             setText('');
         }
-    }
+    };
 
     return (
         <div className="h-[100%] w-[100%] justify-end flex flex-grow flex-col items-center gap-2.5 bg-background p-2.5">
             <div className="p-2.5">
-                <ChatHistory history={history}/>
+                <ChatHistory
+                    history={history}
+                />
             </div>
             <div className="w-[100%]">
-
                 <div className="flex flex-col justify-end items-center gap-2 w-full">
                     <div className="flex self-stretch bg-white px-4 py-3 rounded-lg w-full">
                         <textarea
@@ -54,10 +53,10 @@ const Chat = ()=> {
                         />
                     </div>
                 </div>
-
             </div>
         </div>
     );
-}
+};
 
 export default Chat;
+

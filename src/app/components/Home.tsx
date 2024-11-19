@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ServerList from './ServerList';
-import Server from '../../models/Server';
 import Chat from './Chat';
 import UserList from './UserList';
 

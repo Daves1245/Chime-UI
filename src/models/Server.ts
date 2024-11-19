@@ -10,6 +10,7 @@ class Server {
         this.name = name;
         this.ip = ip;
         this.port = port;
+        this.users = [];
     }
 
     public updateUsers(users: User[]) {

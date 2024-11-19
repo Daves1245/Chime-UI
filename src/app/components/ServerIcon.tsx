@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import Server from '../../models/Server';
 
 interface ServerIconProps {
