@@ -6,7 +6,7 @@ import MessageBox from './MessageBox';
 import ReplyButton from './ReplyButton';
 import ChatHistory from './ChatHistory';
 
-const Chat = () => {
+const Chat = ()=> {
 
     const [history, setHistory] = useState([]);
     const [text, setText] = useState('');

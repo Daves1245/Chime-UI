@@ -13,7 +13,7 @@ const UserIcon: React.FC<ServerIconProps> = ({instance}) => {
     const [color, setColor] = useState(DEFAULT);
 
     const onMouseDown = ()=> {
-
+        setColor(CLICKED);
     };
 
     return (
@@ -22,7 +22,7 @@ const UserIcon: React.FC<ServerIconProps> = ({instance}) => {
                 <div
                     onMouseOver={()=>{setColor(HOVER);}}
                     onMouseLeave={()=>{setColor(DEFAULT);}}
-                    onMouseDown={()=>{setColor(CLICKED);}}
+                    onMouseDown={onMouseDown}
                     onMouseUp={()=>{setColor(HOVER);}}
                     className={`h-full w-full select-none cursor-pointer transition-colors`}
                     style={{ backgroundColor: color }}
