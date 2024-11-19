@@ -1,19 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import User from '../../models/User';
 
 interface UserIconProps {
     instance: User;
 }
 
+const DEFAULT = "#4A90E2";
+const HOVER = "#2E609B";
+const CLICKED = "#3A78C2";
+
 const UserIcon: React.FC<ServerIconProps> = ({instance}) => {
+    const [color, setColor] = useState(DEFAULT);
+
+    const onMouseDown = ()=> {
+
+    };
+
     return (
-        <div className="bg-[#4A90E2] pb-2 w-[100%]">
+        <div className="pb-0 w-full">
             {instance && (
-                <div>
+                <div
+                    onMouseOver={()=>{setColor(HOVER);}}
+                    onMouseLeave={()=>{setColor(DEFAULT);}}
+                    onMouseDown={()=>{setColor(CLICKED);}}
+                    onMouseUp={()=>{setColor(HOVER);}}
+                    className={`h-full w-full select-none cursor-pointer transition-colors`}
+                    style={{ backgroundColor: color }}
+                >
                     <p> {instance.handle} </p>
                 </div>
-            )}
-        </div>
+        )}
+    </div>
     );
 }
 

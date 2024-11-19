@@ -12,11 +12,10 @@ const DEFAULT = "#4A90E2";
 const HOVER = "#2E609B";
 const CLICKED = "#3A78C2";
 
-
 const ServerIcon: React.FC<ServerIconProps> = ({instance}) => {
-    const [color, setColor] = useState("#4A90E2");
+    const [color, setColor] = useState(DEFAULT);
 
-    const onClick = ()=> {
+    const onMouseDown = ()=> {
 
     };
 
