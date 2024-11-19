@@ -9,14 +9,26 @@ interface ServerIconProps {
 }
 
 const ServerIcon: React.FC<ServerIconProps> = ({instance}) => {
+
+    const [hover, setHover] = useState(false);
+
+    const onClick = ()=> {
+
+    };
+
     return (
-        <div className="bg-[#4A90E2] pb-2 w-[100%]">
+        <div className="pb-0 w-full">
             {instance && (
-                <div>
+                <div 
+                    onClick={onClick}
+                    onMouseOver={()=>{setHover(true);}}
+                    onMouseLeave={()=>{setHover(false);}}
+                    className={`h-full w-full ${hover ? 'bg-[#3A78C2]' : 'bg-[#4A90E2]'}`}
+                >
                     <p> {instance.name} </p>
                 </div>
-            )}
-        </div>
+        )}
+    </div>
     );
 };
 
