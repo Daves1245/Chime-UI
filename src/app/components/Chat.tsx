@@ -26,7 +26,6 @@ const Chat = () => {
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            console.log('pressed enter');
             sendMessage(text);
             e.preventDefault();
             addMessage(text);

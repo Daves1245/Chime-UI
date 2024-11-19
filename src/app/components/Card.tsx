@@ -6,8 +6,6 @@ interface CardProps {
 }
 
 export default function Card({ text }: CardProps) {
-  console.log("Card text prop:", text); // Debugging the text prop
-
   return (
     <div className="flex flex-col">
       <div className="h-auto w-auto flex flex-col justify-between bg-[#e2f1e7] p-6 rounded-lg border border-solid border-[#d9d9d9]">
