@@ -8,9 +8,13 @@ interface ServerIconProps {
     instance: Server;
 }
 
-const ServerIcon: React.FC<ServerIconProps> = ({instance}) => {
+const DEFAULT = "#4A90E2";
+const HOVER = "#2E609B";
+const CLICKED = "#3A78C2";
 
-    const [hover, setHover] = useState(false);
+
+const ServerIcon: React.FC<ServerIconProps> = ({instance}) => {
+    const [color, setColor] = useState("#4A90E2");
 
     const onClick = ()=> {
 
@@ -20,10 +24,12 @@ const ServerIcon: React.FC<ServerIconProps> = ({instance}) => {
         <div className="pb-0 w-full">
             {instance && (
                 <div 
-                    onClick={onClick}
-                    onMouseOver={()=>{setHover(true);}}
-                    onMouseLeave={()=>{setHover(false);}}
-                    className={`h-full w-full ${hover ? 'bg-[#3A78C2]' : 'bg-[#4A90E2]'}`}
+                    onMouseOver={()=>{setColor(HOVER);}}
+                    onMouseLeave={()=>{setColor(DEFAULT);}}
+                    onMouseDown={()=>{setColor(CLICKED);}}
+                    onMouseUp={()=>{setColor(HOVER);}}
+                    className={`h-full w-full select-none cursor-pointer transition-colors`}
+                    style={{ backgroundColor: color }}
                 >
                     <p> {instance.name} </p>
                 </div>
