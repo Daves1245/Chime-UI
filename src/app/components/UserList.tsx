@@ -3,18 +3,16 @@
 import React, { useState } from 'react';
 import User from '../../models/User';
 import UserIcon from './UserIcon';
+import Server from '../../models/Server';
 
-const UserList = () => {
-    const [users, setUsers] = useState([
-        new User("billybob", "123"),
-        new User("johndoe", "123"),
-        new User("alex", "123"),
-        new User("bob", "123"),
-    ])
+interface UserListProps {
+    server: Server
+}
 
+const UserList: React.FC<UserListProps> = ({server}) => {
     return (
         <div className="w-[20%] bg-red">
-            {users.map((user, index) => (
+            {server.users.map((user, index) => (
                 <UserIcon key={index} instance={user} />
             ))}
         </div>

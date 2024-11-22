@@ -12,7 +12,7 @@ interface ChatServerProps {
     server: Server;
 }
 
-const Chat: React.FC<ChatServerProps> = ({server}) => {
+const Chat: React.FC<ChatServerProps> = ({ server }) => {
     const [history, setHistory] = useState<Message[]>([]);
     const [text, setText] = useState('');
 
@@ -39,14 +39,21 @@ const Chat: React.FC<ChatServerProps> = ({server}) => {
     };
 
     return (
-        <div className="h-[100%] w-[100%] justify-end flex flex-grow flex-col items-center gap-2.5 bg-background p-2.5">
-            <div className="p-2.5">
-                <ChatHistory
-                    history={history}
-                />
+        <div className="h-[100%] w-[100%] flex flex-col bg-background p-2.5">
+            {/* Server title*/}
+            <div className="w-full bg-gray-800 text-white p-2 text-center font-semibold">
+                {server.name}
             </div>
-            <div className="w-[100%]">
-                <div className="flex flex-col justify-end items-center gap-2 w-full">
+
+            {/* Chat History and Input box */}
+            <div className="flex-grow flex flex-col justify-end w-full">
+                {/* Chat History */}
+                <div className="max-h-[400px] overflow-y-auto p-2.5 bg-white border border-gray-300 rounded-lg">
+                    <ChatHistory history={history} />
+                </div>
+
+                {/* Message input */}
+                <div className="w-full p-2">
                     <div className="flex self-stretch bg-white px-4 py-3 rounded-lg w-full">
                         <textarea
                             className="w-full h-20 resize-none bg-white border border-gray-300 rounded-lg p-2 text-[16px] text-[#1e1e1e] focus:outline-none focus:border-[#757575]"
