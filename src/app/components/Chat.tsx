@@ -2,12 +2,17 @@
 
 import React, { useState } from 'react';
 import ChatHistory from './ChatHistory';
+import Server from '../../models/Server';
 
 interface Message {
     text: string;
 }
 
-const Chat = () => {
+interface ChatServerProps {
+    server: Server;
+}
+
+const Chat: React.FC<ChatServerProps> = ({server}) => {
     const [history, setHistory] = useState<Message[]>([]);
     const [text, setText] = useState('');
 
