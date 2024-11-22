@@ -9,40 +9,64 @@ import UserList from './UserList';
 
 export default function Home() {
 
-    const [selectedServer, setSelectedServer] = useState();
-    const [servers, setServers] = useState();
+    const [selectedServer, setSelectedServer] = useState<Server | null>(null);
+    const [servers, setServers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    const handleServerSelect = (server: Server)=> {
+        setSelectedServer(server);
+    }
 
     useEffect(() => {
-        // grab server list from ServerImporter
-        try {
-            const response = await fetch('/api/getServers');
-            if (!response.ok) {
-                throw new Error('Failed to fetch servers');
+        const fetchServers = async ()=> {
+            try {
+                const response = await fetch('/api/getServers');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch servers');
+                }
+                const data = await response.json();
+                setServers(data.servers);
+                setLoading(false);
+            } catch (e: unknown) {
+                if (e instanceof Error) {
+                    console.log('[fetchServers]: ', e.message);
+                    setError('Error fetching servers: {e.message}');
+                } else {
+                    console.log('Unknown error caught when fetching servers');
+                    setError('Unknown error');
+                }
             }
 
-            const data = await response.json();
-
-            setServers(data.servers);
-            setLoading(false);
-        } catch (e: unknown) {
-            setError('Error fetching servers');
         }
-
         fetchServers();
+
         // cleanup code
         return () => {
 
         };
     }, []);
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+
     return (
         <div className="flex flex-row">
-            <ServerList servers={servers}/>
+            <ServerList servers={servers} onServerSelect={handleServerSelect} />
             <div className="flex flex-col flex-grow min-h-screen">
-                <Chat server={selectedServer}/>
-            </div>
-            <UserList />
+                {/* Only render the Chat component if a server is selected */}
+        {selectedServer ? (
+            <Chat server={selectedServer} />
+            ) : (
+                <div>Select a server to view the chat</div>
+            )}
         </div>
+        <UserList />
+    </div>
     );
 }
