@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Server from '../../models/Server';
+import Image from 'next/image';
 
 interface ServerIconProps {
     instance: Server;
@@ -14,6 +15,7 @@ const CLICKED = "#3A78C2";
 
 const ServerIcon: React.FC<ServerIconProps> = ({instance, onServerSelect}) => {
     const [color, setColor] = useState(DEFAULT);
+    const [imageError, setImageError] = useState(false);
 
     const onMouseDown = ()=> {
         setColor(CLICKED);
@@ -25,20 +27,33 @@ const ServerIcon: React.FC<ServerIconProps> = ({instance, onServerSelect}) => {
     };
 
     return (
-        <div className="pb-0 w-full">
+        <div className="p-2 w-[4em] h-[4em]">
             {instance && (
-                <div 
+                <div
                     onMouseOver={()=>{setColor(HOVER);}}
                     onMouseLeave={()=>{setColor(DEFAULT);}}
                     onMouseDown={onMouseDown}
                     onMouseUp={onMouseUp}
-                    className={`h-full w-full select-none cursor-pointer transition-colors`}
+                    className={`h-full w-full rounded-full grid place-items-center select-none cursor-pointer transition-colors overflow-hidden`}
                     style={{ backgroundColor: color }}
                 >
-                    <p> {instance.name} </p>
+                    {instance.iconUrl && !imageError ? (
+                        <div className="relative w-full h-full">
+                            <Image
+                                src={instance.iconUrl}
+                                alt={`${instance.name} icon`}
+                                fill
+                                sizes="4em"
+                                className="object-cover"
+                                onError={() => setImageError(true)}
+                            />
+                        </div>
+                    ) : (
+                        <p>{instance.name}</p>
+                    )}
                 </div>
-        )}
-    </div>
+            )}
+        </div>
     );
 };
 

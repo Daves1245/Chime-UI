@@ -6,15 +6,23 @@ import Server from '../../models/Server';
 import ServerList from './ServerList';
 import Chat from './Chat';
 import UserList from './UserList';
+import ChannelList from './ChannelList';
 
 export default function Home() {
     const [selectedServer, setSelectedServer] = useState<Server | null>(null);
+    const [selectedChannel, setSelectedChannel] = useState<string | null>(null);
     const [servers, setServers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
     const handleServerSelect = (server: Server) => {
         setSelectedServer(server);
+        // Reset channel selection when switching servers
+        setSelectedChannel(server.channels[0] || null);
+    };
+
+    const handleChannelSelect = (channel: string) => {
+        setSelectedChannel(channel);
     };
 
     useEffect(() => {
@@ -49,25 +57,38 @@ export default function Home() {
     }
 
     return (
-        <div className="flex flex-row ">
-            <ServerList servers={servers} onServerSelect={handleServerSelect} />
+        <div className="flex flex-row w-screen h-screen">
+            <div className="w-[4%] flex-shrink-0">
+              <ServerList servers={servers} onServerSelect={handleServerSelect} />
+            </div>
 
-            <div className="flex flex-col flex-grow min-h-screen">
+            <div className="w-[15%] flex-shrink-0 min-h-screen">
                 {selectedServer ? (
                     <>
-                        <Chat server={selectedServer} />
+                        <ChannelList
+                            server={selectedServer}
+                            selectedChannel={selectedChannel}
+                            onChannelSelect={handleChannelSelect}
+                        />
                     </>
                 ) : (
-                    <div>Select a server to view the chat</div>
+                    <>
+                    </>
                 )}
             </div>
 
-            {selectedServer && (
-                <div className="w-[250px] p-4">
-                    <UserList server={selectedServer} />
-                </div>
-            )}
+            <div className="flex-grow min-h-screen max-h-screen">
+                {selectedServer && selectedChannel ? (
+                    <>
+                        <Chat
+                            server={selectedServer}
+                            channel={selectedChannel}
+                        />
+                    </>
+                ) : (
+                    <div>Select a server and channel to view the chat</div>
+                )}
+            </div>
         </div>
     );
 }
-

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import Server from '../../../models/Server';
 import User from '../../../models/User';
 
@@ -20,28 +20,42 @@ const generateRandomUsers = (numUsers: number) => {
     for (let i = 0; i < numUsers; i++) {
         const handle = generateRandomHandle();
         const id = generateRandomId();
-        const user = new User(handle, id); // Create a new User instance
+        const user = new User(handle, id, '/pfp.png'); // Add default profile picture
         users.push(user);
     }
     return users;
 };
 
-export async function GET(request: NextRequest) {
+// Default channels that each server will have
+const defaultChannels = [
+    'general',
+    'memes',
+    'music',
+    'games',
+    'announcements',
+    'off-topic',
+    'coding',
+    'random'
+];
+
+export async function GET() {
     try {
         // Mock servers data
         const servers = [
-            new Server('Server1', '127.0.0.1', 1234),
-            new Server('Server2', '192.168.1.1', 5678),
-            new Server('Server3', '10.0.0.1', 9101),
-            new Server('Server4', '172.16.0.1', 1122),
-            new Server('Server5', '192.168.100.1', 3344),
-            new Server('Server6', '10.0.1.1', 5566),
+            new Server('Server1', '127.0.0.1', 1234, '/icon.png'),
+            new Server('Server2', '192.168.1.1', 5678, '/icon.png'),
+            new Server('Server3', '10.0.0.1', 9101, '/icon.png'),
+            new Server('Server4', '172.16.0.1', 1122, '/icon.png'),
+            new Server('Server5', '192.168.100.1', 3344, '/icon.png'),
+            new Server('Server6', '10.0.1.1', 5566, '/icon.png'),
         ];
 
-        // Loop through each server and update the users with random names
+        // Generate 5 random users and add default channels for each server
         servers.forEach((server) => {
-            const randomUsers = generateRandomUsers(5); // Generate 5 random users for each server
-            server.updateUsers(randomUsers); // Update the server's users with the random users array
+            const randomUsers = generateRandomUsers(5);
+            server.updateUsers(randomUsers);
+            // Each server gets all default channels
+            server.updateChannels(defaultChannels);
         });
 
         // Return the updated servers
@@ -55,4 +69,3 @@ export async function GET(request: NextRequest) {
         }
     }
 }
-
