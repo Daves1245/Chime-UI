@@ -122,6 +122,25 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Electron build output
+dist/
+
+# Next.js Turbo cache
+.turbo
+
 # yarn v2
 .yarn/cache
 .yarn/unplugged
@@ -137,3 +156,5 @@ log
 *.sw
 *.swp
 *.swo
+
+credentials/credentials.toml
