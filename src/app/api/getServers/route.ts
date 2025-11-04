@@ -60,7 +60,6 @@ export async function GET() {
       new Server('Server3', '10.0.0.1', 9101, '/icon.png'),
       new Server('Server4', '172.16.0.1', 1122, '/icon.png'),
       new Server('Server5', '192.168.100.1', 3344, '/icon.png'),
-      new Server('Server6', '10.0.1.1', 5566, '/icon.png'),
     ];
 
     // Generate 5 random users and add default channels for each server
